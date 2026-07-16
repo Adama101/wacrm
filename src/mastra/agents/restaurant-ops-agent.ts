@@ -16,6 +16,8 @@ import { industryOpsInstructions } from "./shared-ops-instructions";
 export const restaurantOpsAgent = new Agent({
   id: "restaurant-ops-agent",
   name: "Restaurant Ops Agent",
+  description:
+    "Restaurant FOH/BOH shift readiness, guest recovery, and staff accountability playbooks.",
   instructions: industryOpsInstructions({
     vertical: "restaurant",
     label: "Restaurant Operations Agent",

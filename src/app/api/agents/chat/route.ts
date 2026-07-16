@@ -46,6 +46,7 @@ export async function POST(req: Request) {
     userId: user.id,
     message,
     persona: body.persona,
+    channel: "web",
   });
 
   if (!result.ok) {

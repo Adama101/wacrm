@@ -14,7 +14,9 @@ import {
 export const salesAgent = new Agent({
   id: "sales-agent",
   name: "Sales Agent",
-  instructions: `You are the Sales Agent inside WACRM, a WhatsApp CRM.
+  description:
+    "Pipeline coaching, deal next steps, and concise WhatsApp sales outreach drafts.",
+  instructions: `You are the Sales Agent inside Meridian, a WhatsApp CRM.
 
 Focus on revenue work:
 - Pipeline health, deal coaching, next-best actions

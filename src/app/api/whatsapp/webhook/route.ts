@@ -6,6 +6,7 @@ import { normalizePhone, phonesMatch } from '@/lib/whatsapp/phone-utils'
 import { verifyMetaWebhookSignature } from '@/lib/whatsapp/webhook-signature'
 import { runAutomationsForTrigger } from '@/lib/automations/engine'
 import { dispatchInboundToFlows } from '@/lib/flows/engine'
+import { tryDispatchWhatsAppAgent } from '@/lib/agents/whatsapp-channel'
 
 // Lazy-initialized to avoid build-time crash when env vars are missing
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -640,21 +641,40 @@ async function processMessage(
   })
   const flowConsumed = flowResult.consumed
 
+  // ============================================================
+  // Meridian WhatsApp agent channel (staff-first + manager-capable).
+  //
+  // Contacts tagged Staff / Manager (etc.) talk to Mastra agents on
+  // WhatsApp. The agent executes tools and replies as bot. When the
+  // channel claims the message, suppress content-level automations
+  // the same way Flows do — avoid double-replies.
+  // ============================================================
+  const inboundText = contentText ?? message.text?.body ?? ''
+  let agentConsumed = false
+  if (!flowConsumed && inboundText.trim()) {
+    const agentResult = await tryDispatchWhatsAppAgent({
+      userId,
+      contactId: contactRecord.id,
+      conversationId: conversation.id,
+      inboundText,
+    })
+    agentConsumed = agentResult.consumed
+  }
+
   // Fire any automations that react to this webhook event. All dispatches
   // run here (not earlier) so the contact, conversation, and inbound
   // message all exist before any step — including send_message — runs.
   // Fire-and-forget: a slow or failing automation must not block the
   // webhook's 200 OK response to Meta.
-  const inboundText = contentText ?? message.text?.body ?? ''
   const automationTriggers: (
     | 'new_contact_created'
     | 'first_inbound_message'
     | 'new_message_received'
     | 'keyword_match'
   )[] = []
-  // Content-level triggers are suppressed when a flow consumed the
-  // message — see the comment block above.
-  if (!flowConsumed) {
+  // Content-level triggers are suppressed when a flow or WhatsApp agent
+  // consumed the message — see the comment blocks above.
+  if (!flowConsumed && !agentConsumed) {
     automationTriggers.push('new_message_received', 'keyword_match')
   }
   // new_contact_created fires only when the webhook just auto-created the

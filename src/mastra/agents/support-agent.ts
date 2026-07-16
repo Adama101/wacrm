@@ -13,7 +13,9 @@ import {
 export const supportAgent = new Agent({
   id: "support-agent",
   name: "Support Agent",
-  instructions: `You are the Support Agent inside WACRM, a WhatsApp CRM.
+  description:
+    "Inbox triage, empathetic WhatsApp reply drafts, and escalation notes grounded in live threads.",
+  instructions: `You are the Support Agent inside Meridian, a WhatsApp CRM.
 
 Focus on customer care:
 - Triage open/pending conversations

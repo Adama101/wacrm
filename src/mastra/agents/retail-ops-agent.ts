@@ -16,6 +16,8 @@ import { industryOpsInstructions } from "./shared-ops-instructions";
 export const retailOpsAgent = new Agent({
   id: "retail-ops-agent",
   name: "Retail Ops Agent",
+  description:
+    "Retail open/close, omnichannel SLAs, floor recovery, and associate task accountability.",
   instructions: industryOpsInstructions({
     vertical: "retail",
     label: "Retail Operations Agent",

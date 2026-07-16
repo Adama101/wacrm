@@ -121,13 +121,22 @@ export function AgentWorkspace() {
         <div>
           <h2 className="text-sm font-semibold text-white">Agents</h2>
           <p className="mt-1 text-xs text-slate-400">
-            Industry ops companions + CRM specialists, powered by Mastra.
+            Web console for managers. Staff primarily chat these agents on
+            WhatsApp (auto-routed by Staff / Manager tags).
           </p>
+        </div>
+
+        <div className="rounded-lg border border-teal-500/20 bg-teal-500/5 px-3 py-2.5 text-[11px] leading-relaxed text-teal-100/90">
+          <span className="font-semibold text-teal-200">WhatsApp channel:</span>{" "}
+          contacts tagged <span className="text-white">Staff</span> are
+          agent-first on WA.{" "}
+          <span className="text-white">Manager</span> / Shift-Lead can command
+          the same agents from WA or this admin UI.
         </div>
 
         <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2">
           <p className="mb-2 px-1 text-[10px] font-semibold tracking-wide text-slate-500 uppercase">
-            Role mode
+            Role mode (web)
           </p>
           <div className="grid grid-cols-2 gap-1">
             {(

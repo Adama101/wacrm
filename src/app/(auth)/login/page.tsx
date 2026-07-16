@@ -14,7 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MessageSquare } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
+import { brand } from "@/lib/brand";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -44,15 +45,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
-      <Card className="w-full max-w-md border-slate-800 bg-slate-900">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#07111f] px-4">
+      <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[28rem] -translate-x-1/2 rounded-full bg-teal-500/20 blur-3xl" />
+      <Card className="relative w-full max-w-md border-slate-800 bg-slate-900/90 backdrop-blur">
         <CardHeader className="items-center text-center">
-          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-            <MessageSquare className="h-6 w-6 text-primary" />
-          </div>
+          <Logo className="mb-3" size={36} />
           <CardTitle className="text-xl text-white">Welcome back</CardTitle>
           <CardDescription className="text-slate-400">
-            Sign in to your account
+            Sign in to your {brand.name} workspace
           </CardDescription>
         </CardHeader>
         <CardContent>

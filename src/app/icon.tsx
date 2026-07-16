@@ -1,17 +1,10 @@
 import { ImageResponse } from "next/og";
 
-// Replaces the default Next.js favicon with the brand mark — Hostinger
-// violet rounded square + white chat-square glyph — matching the
-// sidebar logo in `src/components/layout/sidebar.tsx`. Next.js renders
-// this at build time and auto-injects <link rel="icon"> into <head>.
-//
-// This route takes precedence over src/app/favicon.ico, which is the
-// Next.js default and can stay on disk harmlessly (or be removed).
-
 export const runtime = "edge";
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
+/** Meridian favicon — teal arc + conversation node on deep ink. */
 export default function Icon() {
   return new ImageResponse(
     (
@@ -22,21 +15,29 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#7c3aed", // primary (Hostinger-aligned purple)
-          borderRadius: 6,
+          background: "#042f2e",
+          borderRadius: 7,
         }}
       >
         <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
+          width="22"
+          height="22"
+          viewBox="0 0 32 32"
           fill="none"
-          stroke="#ffffff"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
         >
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          <path
+            d="M6 22c4.5-9 15.5-9 20 0"
+            stroke="#5eead4"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+          />
+          <circle cx="16" cy="13" r="3.2" fill="#ecfeff" />
+          <path
+            d="M11 19.5c1.4 1.6 3.1 2.4 5 2.4s3.6-.8 5-2.4"
+            stroke="#ecfeff"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
         </svg>
       </div>
     ),

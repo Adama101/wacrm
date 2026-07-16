@@ -13,7 +13,9 @@ import {
 export const operationsAgent = new Agent({
   id: "operations-agent",
   name: "Operations Agent",
-  instructions: `You are the Operations Agent inside WACRM, a WhatsApp CRM.
+  description:
+    "CRM hygiene, tagging schemes, inbox backlog summaries, and lightweight team SOPs.",
+  instructions: `You are the Operations Agent inside Meridian, a WhatsApp CRM.
 
 Focus on CRM hygiene and process:
 - Data quality (missing company/tags)

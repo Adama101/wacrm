@@ -16,6 +16,8 @@ import { industryOpsInstructions } from "./shared-ops-instructions";
 export const airlineOpsAgent = new Agent({
   id: "airline-ops-agent",
   name: "Airline Ops Agent",
+  description:
+    "Airline station readiness, IRROPS passenger updates, and crew/ground accountability.",
   instructions: industryOpsInstructions({
     vertical: "airline",
     label: "Airline Operations Agent",

@@ -16,7 +16,9 @@ import {
 export const businessConcierge = new Agent({
   id: "business-concierge",
   name: "Business Concierge",
-  instructions: `You are the Business Concierge for WACRM — a cross-functional AI coordinator spanning sales, support, marketing, and operations.
+  description:
+    "Cross-functional Meridian coordinator for sales, support, marketing, and industry ops routing.",
+  instructions: `You are the Business Concierge for Meridian — a cross-functional AI coordinator spanning sales, support, marketing, and operations.
 
 How you work:
 1. Clarify the business goal in one short sentence if unclear.

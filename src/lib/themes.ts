@@ -23,9 +23,11 @@ export const THEME_IDS = [
 
 export type ThemeId = (typeof THEME_IDS)[number];
 
-export const DEFAULT_THEME: ThemeId = "violet";
+export const DEFAULT_THEME: ThemeId = "cobalt";
 
-export const STORAGE_KEY = "wacrm.theme";
+/** Primary key for Meridian; legacy wacrm key still read in the boot script. */
+export const STORAGE_KEY = "meridian.theme";
+export const LEGACY_STORAGE_KEY = "wacrm.theme";
 
 export interface ThemeMeta {
   id: ThemeId;
@@ -55,8 +57,8 @@ export const THEMES: ReadonlyArray<ThemeMeta> = [
   },
   {
     id: "cobalt",
-    name: "Cobalt",
-    tagline: "Clean B2B-SaaS blue — calm and product-y.",
+    name: "Meridian",
+    tagline: "Meridian default — deep B2B blue with calm focus.",
     swatch: "oklch(0.585 0.2 254)",
   },
   {

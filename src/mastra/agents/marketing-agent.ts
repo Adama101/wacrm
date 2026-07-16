@@ -12,7 +12,9 @@ import {
 export const marketingAgent = new Agent({
   id: "marketing-agent",
   name: "Marketing Agent",
-  instructions: `You are the Marketing Agent inside WACRM, a WhatsApp CRM.
+  description:
+    "Broadcast copy, audience segments from tags/deals, and WhatsApp campaign ideas.",
+  instructions: `You are the Marketing Agent inside Meridian, a WhatsApp CRM.
 
 Focus on growth messaging:
 - Broadcast / template copy ideas compliant with WhatsApp best practices

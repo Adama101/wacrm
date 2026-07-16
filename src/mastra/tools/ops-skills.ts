@@ -586,6 +586,66 @@ export const draftCustomerOpsReplyTool = createTool({
   },
 });
 
+export const sendWhatsAppMessageTool = createTool({
+  id: "send-whatsapp-message",
+  description:
+    "Send a WhatsApp text to a contact as Meridian bot (staff nudges, guest updates, peer handoffs). Use when you need to message someone other than the current chat, or to deliver a nudge after assigning a task.",
+  inputSchema: z.object({
+    contactId: z.string().uuid(),
+    text: z.string().min(1).max(4000),
+  }),
+  execute: async ({ contactId, text }, context) => {
+    const userId = requireUserId(context);
+    const supabase = createCrmAdmin();
+    const { data: contact } = await supabase
+      .from("contacts")
+      .select("id, name, phone")
+      .eq("id", contactId)
+      .eq("user_id", userId)
+      .maybeSingle();
+    if (!contact) throw new Error("Contact not found");
+
+    let { data: conversation } = await supabase
+      .from("conversations")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("contact_id", contactId)
+      .order("last_message_at", { ascending: false, nullsFirst: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (!conversation) {
+      const { data: created, error } = await supabase
+        .from("conversations")
+        .insert({
+          user_id: userId,
+          contact_id: contactId,
+          status: "open",
+          unread_count: 0,
+        })
+        .select("id")
+        .single();
+      if (error || !created) throw new Error(error?.message ?? "Failed to open conversation");
+      conversation = created;
+    }
+
+    const { engineSendText } = await import("@/lib/automations/meta-send");
+    const { whatsapp_message_id } = await engineSendText({
+      userId,
+      conversationId: conversation.id,
+      contactId,
+      text,
+    });
+
+    return {
+      ok: true,
+      contact,
+      conversationId: conversation.id,
+      whatsapp_message_id,
+    };
+  },
+});
+
 export const opsSkillsTools = {
   getOpsPlaybookTool,
   buildOpsBriefTool,
@@ -594,4 +654,5 @@ export const opsSkillsTools = {
   logStaffCheckInTool,
   listOpenAccountabilityTool,
   draftCustomerOpsReplyTool,
+  sendWhatsAppMessageTool,
 };

@@ -13,7 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MessageSquare, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
+import { brand } from "@/lib/brand";
 
 export default function SignupPage() {
   const [fullName, setFullName] = useState("");
@@ -63,11 +65,12 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
-        <Card className="w-full max-w-md border-slate-800 bg-slate-900">
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#07111f] px-4">
+        <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[28rem] -translate-x-1/2 rounded-full bg-teal-500/20 blur-3xl" />
+        <Card className="relative w-full max-w-md border-slate-800 bg-slate-900/90 backdrop-blur">
           <CardHeader className="items-center text-center">
-            <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-              <CheckCircle className="h-6 w-6 text-primary" />
+            <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500/15">
+              <CheckCircle className="h-6 w-6 text-teal-300" />
             </div>
             <CardTitle className="text-xl text-white">
               Check your email
@@ -94,15 +97,14 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
-      <Card className="w-full max-w-md border-slate-800 bg-slate-900">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#07111f] px-4">
+      <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[28rem] -translate-x-1/2 rounded-full bg-teal-500/20 blur-3xl" />
+      <Card className="relative w-full max-w-md border-slate-800 bg-slate-900/90 backdrop-blur">
         <CardHeader className="items-center text-center">
-          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-            <MessageSquare className="h-6 w-6 text-primary" />
-          </div>
-          <CardTitle className="text-xl text-white">Create account</CardTitle>
+          <Logo className="mb-3" size={36} />
+          <CardTitle className="text-xl text-white">Create workspace</CardTitle>
           <CardDescription className="text-slate-400">
-            Get started with CRM Template for WhatsApp
+            Start your {brand.name} trial — inbox, pipelines, and AI ops
           </CardDescription>
         </CardHeader>
         <CardContent>
