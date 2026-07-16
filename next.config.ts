@@ -54,6 +54,13 @@ const SECURITY_HEADERS = [
 ] as const;
 
 const nextConfig: NextConfig = {
+  // Mastra pulls Node-oriented packages; keep them external to the bundler.
+  serverExternalPackages: [
+    "@mastra/core",
+    "@mastra/memory",
+    "@mastra/libsql",
+  ],
+
   /**
    * Cache-Control policy.
    *

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useCallback, KeyboardEvent } from "react";
-import { Send, LayoutTemplate } from "lucide-react";
+import { Send, LayoutTemplate, Sparkles, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ReplyQuote } from "./reply-quote";
@@ -32,6 +33,7 @@ export function MessageComposer({
 }: MessageComposerProps) {
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);
+  const [suggesting, setSuggesting] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = useCallback(() => {
@@ -76,6 +78,31 @@ export function MessageComposer({
     [adjustHeight]
   );
 
+  const handleSuggestReply = useCallback(async () => {
+    if (suggesting || sessionExpired || !conversationId) return;
+    setSuggesting(true);
+    try {
+      const res = await fetch("/api/agents/suggest-reply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          conversationId,
+          sectorId: "support",
+        }),
+      });
+      const data = (await res.json()) as { draft?: string; error?: string };
+      if (!res.ok) throw new Error(data.error || "AI draft failed");
+      if (!data.draft?.trim()) throw new Error("Empty AI draft");
+      setText(data.draft.trim());
+      requestAnimationFrame(adjustHeight);
+      toast.success("AI draft ready — edit before sending");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "AI draft failed");
+    } finally {
+      setSuggesting(false);
+    }
+  }, [suggesting, sessionExpired, conversationId, adjustHeight]);
+
   return (
     <div className="border-t border-slate-800 bg-slate-900 p-3">
       {replyTo && (
@@ -115,6 +142,21 @@ export function MessageComposer({
           <LayoutTemplate className="h-4 w-4" />
         </Button>
 
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-9 w-9 shrink-0 p-0 text-slate-400 hover:text-primary"
+          onClick={handleSuggestReply}
+          disabled={sessionExpired || suggesting}
+          title="Draft reply with AI"
+        >
+          {suggesting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Sparkles className="h-4 w-4" />
+          )}
+        </Button>
+
         <textarea
           ref={textareaRef}
           value={text}
@@ -146,8 +188,8 @@ export function MessageComposer({
       {/* Hint sits outside the flex row so its height doesn't push
           `items-end` buttons below the textarea. Indented to line up
           under the textarea left edge (w-9 button + gap-2 = 44px). */}
-      <p className="mt-1 pl-11 text-[10px] text-slate-600">
-        Type &apos;/&apos; for quick replies
+      <p className="mt-1 pl-[5.5rem] text-[10px] text-slate-600">
+        Sparkles drafts an AI reply · Type &apos;/&apos; for quick replies
       </p>
     </div>
   );
