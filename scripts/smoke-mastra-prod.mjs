@@ -144,6 +144,12 @@ async function main() {
         "Missing OPENAI_API_KEY on Mastra Server — set with: npx mastra server env set OPENAI_API_KEY 'sk-...' && npx mastra server restart",
       );
       failures++;
+    } else if (/quota|billing|insufficient/i.test(String(err))) {
+      fail(
+        "POST airline-ops-agent/generate",
+        "OpenAI key accepted but account has no quota/billing — add credits at https://platform.openai.com/account/billing",
+      );
+      failures++;
     } else {
       fail("POST airline-ops-agent/generate", `${res.status} ${String(err).slice(0, 240)}`);
       failures++;
