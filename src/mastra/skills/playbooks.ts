@@ -1,3 +1,5 @@
+import { AIRLINE_PLAYBOOKS } from "./airline/playbooks";
+
 export type OpsVertical = "restaurant" | "airline" | "retail";
 
 export type OpsPersona = "manager" | "staff";
@@ -8,6 +10,7 @@ type Playbook = {
   persona: OpsPersona | "both";
   steps: string[];
   escalation?: string[];
+  themes?: string[];
 };
 
 const RESTAURANT: Playbook[] = [
@@ -63,58 +66,7 @@ const RESTAURANT: Playbook[] = [
   },
 ];
 
-const AIRLINE: Playbook[] = [
-  {
-    id: "preflight-ops",
-    title: "Day-of-ops / station readiness",
-    persona: "both",
-    steps: [
-      "Confirm crew check-in and standby coverage",
-      "Review IRROPS risk: weather, ATC, maintenance holds",
-      "Verify gate/aircraft assignment and turn times",
-      "Prepare passenger communication templates for delay/cancel",
-      "Coordinate ground handlers / catering / fuel windows",
-    ],
-  },
-  {
-    id: "irrops",
-    title: "IRROPS passenger recovery",
-    persona: "both",
-    steps: [
-      "Publish clear delay reason + next update time",
-      "Prioritize connections, UMNR, SSR, and elite passengers",
-      "Offer rebooking / hotel / meal vouchers per policy",
-      "Log each case on passenger contact with commitment ETA",
-      "Escalate crew legality / MEL / safety issues immediately",
-    ],
-    escalation: [
-      "Safety / security → stop commercial messaging; follow ops control",
-      "Misconnect with overnight → manager approval for hotel/transport",
-    ],
-  },
-  {
-    id: "crew-accountability",
-    title: "Crew / ground staff accountability",
-    persona: "staff",
-    steps: [
-      "Report duty start / position ready on time",
-      "Complete assigned checklist items before departure window",
-      "Escalate blockers early (not after pushback risk)",
-      "Close shift with open items + passenger callbacks needed",
-    ],
-  },
-  {
-    id: "station-manager",
-    title: "Station manager companion brief",
-    persona: "manager",
-    steps: [
-      "Inbox triage: IRROPS vs routine booking questions",
-      "Crew legality / turn bottlenecks in next 4 hours",
-      "Outstanding passenger commitments past SLA",
-      "Staff nudges for incomplete checklists",
-    ],
-  },
-];
+const AIRLINE: Playbook[] = AIRLINE_PLAYBOOKS;
 
 const RETAIL: Playbook[] = [
   {
@@ -198,9 +150,24 @@ export const VERTICAL_TAG_SCHEME: Record<
     ops: ["Incident", "86", "Allergy", "Accountability"],
   },
   airline: {
-    staff: ["Staff", "Crew", "Ground", "Station-Lead"],
-    customer: ["Passenger", "Elite", "SSR", "Connection"],
-    ops: ["IRROPS", "Incident", "Accountability", "Rebooking"],
+    staff: ["Staff", "Crew", "Ground", "Station-Lead", "Gate", "OCC-Liaison"],
+    customer: [
+      "Passenger",
+      "Elite",
+      "SSR",
+      "PRM",
+      "UMNR",
+      "Connection",
+      "Baggage",
+    ],
+    ops: [
+      "IRROPS",
+      "Incident",
+      "Accountability",
+      "Rebooking",
+      "Turn",
+      "Sustainability",
+    ],
   },
   retail: {
     staff: ["Staff", "Associate", "Stock", "Shift-Lead"],

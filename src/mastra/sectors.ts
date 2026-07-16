@@ -123,16 +123,19 @@ export const AGENT_SECTORS: AgentSector[] = [
     shortLabel: "Airline",
     group: "industry",
     description:
-      "Station/IRROPS companion for managers; crew & ground accountability partner with passenger comms drafts.",
+      "Full station command agent: turns, IRROPS severity, passenger CX waves, SSR/PRM care, staff accountability, and sustainable recovery — built for transforming airline operations.",
     prompts: [
-      "Build a station manager brief for the next 4 hours.",
-      "We have a 90-minute delay — draft passenger WhatsApp updates and assign ground follow-ups.",
-      "Which staff tasks are still open or blocked?",
+      "Build a station manager brief for the next 4 hours and map risks to ops / CX / people / sustainability.",
+      "AT425 is +90 minutes with connections at risk — classify IRROPS, prioritize the care queue, and draft FR/EN passenger update waves.",
+      "Plan a 55-minute aircraft turn with WhatsApp tasks for Ground and Gate; escalate blockers at T-10.",
+      "How would Meridian prove ROI in a 3–6 month POC for transforming airline operations?",
+      "Which staff tasks are still open or blocked, and who should I coach first?",
     ],
     staffPrompts: [
-      "Show the preflight / station readiness checklist for ground staff.",
-      "Log CHECK-IN: gate area set, wheelchairs staged.",
-      "Log BLOCKED: catering late — need manager decision.",
+      "Give me the aircraft-turn checklist for Ground and what I must report.",
+      "Log CHECK-IN: gate area set, wheelchairs staged for PRM.",
+      "Log BLOCKED: catering late — need Station-Lead decision before boarding.",
+      "Show SSR/PRM care steps for boarding in 20 minutes.",
     ],
   },
   {

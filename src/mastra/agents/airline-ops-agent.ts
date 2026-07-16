@@ -10,24 +10,16 @@ import {
   listTagsTool,
   searchContactsTool,
 } from "../tools/crm-tools";
+import { airlineOpsTools } from "../tools/airline-ops-tools";
 import { opsSkillsTools } from "../tools/ops-skills";
-import { industryOpsInstructions } from "./shared-ops-instructions";
+import { AIRLINE_OPS_INSTRUCTIONS } from "./airline-ops-instructions";
 
 export const airlineOpsAgent = new Agent({
   id: "airline-ops-agent",
   name: "Airline Ops Agent",
   description:
-    "Airline station readiness, IRROPS passenger updates, and crew/ground accountability.",
-  instructions: industryOpsInstructions({
-    vertical: "airline",
-    label: "Airline Operations Agent",
-    domainFocus: [
-      "Station readiness, crew/ground coordination, turn discipline",
-      "IRROPS passenger communications with time-bound updates",
-      "Connections, SSR, elite care, and rebooking case notes",
-      "Crew/ground accountability checklists and blocker escalations",
-    ],
-  }),
+    "Airline operations master for station turns, IRROPS, passenger CX, crew/ground accountability, and sustainable day-of-ops — WhatsApp-first for RAM-style station transformation.",
+  instructions: AIRLINE_OPS_INSTRUCTIONS,
   model: getAgentModel(),
   tools: {
     searchContactsTool,
@@ -39,5 +31,6 @@ export const airlineOpsAgent = new Agent({
     addContactTagTool,
     addContactNoteTool,
     ...opsSkillsTools,
+    ...airlineOpsTools,
   },
 });

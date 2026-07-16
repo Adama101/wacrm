@@ -116,20 +116,32 @@ export const buildOpsBriefTool = createTool({
             "BOH",
             "Crew",
             "Ground",
+            "Gate",
             "Associate",
             "Shift-Lead",
+            "Station-Lead",
             "IRROPS",
             "Guest",
             "Passenger",
             "Shopper",
+            "SSR",
+            "PRM",
           ]),
       ]);
 
     const staffTagIds = (tags ?? [])
       .filter((t) =>
-        ["Staff", "FOH", "BOH", "Crew", "Ground", "Associate", "Shift-Lead"].includes(
-          t.name,
-        ),
+        [
+          "Staff",
+          "FOH",
+          "BOH",
+          "Crew",
+          "Ground",
+          "Gate",
+          "Associate",
+          "Shift-Lead",
+          "Station-Lead",
+        ].includes(t.name),
       )
       .map((t) => t.id);
 
@@ -271,6 +283,7 @@ export const listStaffRosterTool = createTool({
           "BOH",
           "Crew",
           "Ground",
+          "Gate",
           "Associate",
           "Stock",
           "Shift-Lead",

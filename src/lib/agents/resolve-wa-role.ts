@@ -13,14 +13,29 @@ const STAFF_TAGS = new Set([
   "boh",
   "crew",
   "ground",
+  "gate",
   "associate",
   "stock",
+  "occ-liaison",
 ]);
 
 const SECTOR_HINTS: Array<{ tags: string[]; sector: AgentSectorId }> = [
   { tags: ["foh", "boh", "guest", "reservation", "86", "allergy"], sector: "restaurant" },
   {
-    tags: ["crew", "ground", "passenger", "irrops", "rebooking", "ssr"],
+    tags: [
+      "crew",
+      "ground",
+      "gate",
+      "passenger",
+      "irrops",
+      "rebooking",
+      "ssr",
+      "prm",
+      "umnr",
+      "turn",
+      "baggage",
+      "occ-liaison",
+    ],
     sector: "airline",
   },
   {

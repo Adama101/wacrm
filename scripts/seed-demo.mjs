@@ -123,6 +123,7 @@ async function seed(userId) {
       { user_id: userId, name: "BOH", color: "#f43f5e" },
       { user_id: userId, name: "Crew", color: "#6366f1" },
       { user_id: userId, name: "Ground", color: "#8b5cf6" },
+      { user_id: userId, name: "Gate", color: "#7c3aed" },
       { user_id: userId, name: "Associate", color: "#06b6d4" },
       { user_id: userId, name: "Shift-Lead", color: "#eab308" },
       { user_id: userId, name: "Station-Lead", color: "#38bdf8" },
@@ -130,8 +131,12 @@ async function seed(userId) {
       { user_id: userId, name: "Incident", color: "#ef4444" },
       { user_id: userId, name: "Guest", color: "#84cc16" },
       { user_id: userId, name: "Passenger", color: "#38bdf8" },
+      { user_id: userId, name: "SSR", color: "#0ea5e9" },
+      { user_id: userId, name: "PRM", color: "#0284c7" },
+      { user_id: userId, name: "Connection", color: "#0369a1" },
       { user_id: userId, name: "Shopper", color: "#a3e635" },
       { user_id: userId, name: "IRROPS", color: "#fb7185" },
+      { user_id: userId, name: "Turn", color: "#c084fc" },
       { user_id: userId, name: "BOPIS", color: "#2dd4bf" },
     ],
   });
@@ -192,7 +197,7 @@ async function seed(userId) {
       name: "Sam Okonkwo",
       email: "sam@airlink.local",
       company: "AirLink Station",
-      tags: ["Staff", "Ground", "Accountability"],
+      tags: ["Staff", "Ground", "Turn", "Accountability"],
     },
     {
       phone: "+15551004",
@@ -200,6 +205,13 @@ async function seed(userId) {
       email: "riley@airlink.local",
       company: "AirLink Station",
       tags: ["Staff", "Crew", "Shift-Lead"],
+    },
+    {
+      phone: "+15551009",
+      name: "Yasmine Benali",
+      email: "yasmine@airlink.local",
+      company: "AirLink Station",
+      tags: ["Staff", "Gate", "PRM", "Accountability"],
     },
     {
       phone: "+15551005",
@@ -240,8 +252,15 @@ async function seed(userId) {
       phone: "+15552002",
       name: "Passenger Omar Haddad",
       email: "omar@example.com",
-      company: "Flight AA214",
-      tags: ["Passenger", "IRROPS"],
+      company: "Flight AT425",
+      tags: ["Passenger", "IRROPS", "Connection"],
+    },
+    {
+      phone: "+15552003",
+      name: "Passenger Fatima Zahra",
+      email: "fatima@example.com",
+      company: "Flight AT425",
+      tags: ["Passenger", "IRROPS", "SSR", "PRM"],
     },
   ];
 

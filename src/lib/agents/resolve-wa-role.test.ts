@@ -26,4 +26,11 @@ describe("resolveWhatsAppAgentRole", () => {
     expect(role.sectorId).toBe("retail");
     expect(role.persona).toBe("staff");
   });
+
+  it("maps Gate / PRM staff to airline", () => {
+    const role = resolveWhatsAppAgentRole(["Staff", "Gate", "PRM"]);
+    expect(role.enabled).toBe(true);
+    expect(role.persona).toBe("staff");
+    expect(role.sectorId).toBe("airline");
+  });
 });
