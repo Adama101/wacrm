@@ -39,6 +39,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Mastra local build output (keep .mastra-project.json)
+.mastra/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
